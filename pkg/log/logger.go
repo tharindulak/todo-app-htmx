@@ -26,16 +26,15 @@ func init() {
 }
 
 func Info(v ...interface{}) {
-    infoLogger.Println(v...)
+	infoLogger.Println(v...)
 }
 
 func Debug(v ...interface{}) {
-    if EnableDebug {
-        debugLogger.Println(v...)
-    }
+	if EnableDebug {
+		debugLogger.Println(v...)
+	}
 }
 
 func Error(v ...interface{}) {
-    errorLogger.Println(v...)
+	errorLogger.Println(v...)
 }
-
