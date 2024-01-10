@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/charukak/todo-app-htmx/pkg/log"
+	"github.com/go-chi/chi/v5"
 )
 
 var port = ":8080"
@@ -16,10 +17,10 @@ func NewServer() *Server {
 	return &Server{}
 }
 
-func (s *Server) Start() {
+func (s *Server) Start(r chi.Router) {
 	// start server
 	log.Info("Server started on port: ", port)
-	http.ListenAndServe(port, nil)
+	http.ListenAndServe(port, r)
 }
 
 // register Handle function {

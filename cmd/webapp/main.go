@@ -11,11 +11,12 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	s := server.NewServer()
 	h := handlers.NewHandler()
+	r.Get("/", h.Hello)
+
+	s := server.NewServer()
 	s.HandleStatic("/static/", "./static")
-	s.Handle("/", h.Hello)
-	s.Start()
+	// s.Handle("/", h.Hello)
+	s.Start(r)
 
 }
-

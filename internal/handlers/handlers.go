@@ -1,14 +1,19 @@
 package handlers
 
-import "net/http"
+import (
+	"context"
+	"net/http"
+
+	"github.com/charukak/todo-app-htmx/web/templates"
+)
 
 type Handler struct{}
 
 func (h *Handler) Hello(w http.ResponseWriter, r *http.Request) {
-    w.Write([]byte("Hello, world!"))
+	component := templates.Hello("yay")
+    component.Render(context.Background(),w)
 }
 
 func NewHandler() *Handler {
-    return &Handler{}
+	return &Handler{}
 }
-
