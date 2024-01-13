@@ -11,10 +11,20 @@
 </head>
 
 <body>
-    <main>
-        <div class="md:container md:mx-auto">
-            <h1 class="text-3xl">Go + HTMX + Tailwind Example</h1>
-            <br />
+    <main class="justify-center">
+        <h1 class="text-4xl text-center">Go + HTMX + Tailwind</h1>
+        <div id="content-area">
+            <div id="input-area">
+                <form hx-post="/api/add" hx-target="#list-area">
+                    <input type="text" name="item" placeholder="Add item" />
+                    <button type="submit">Add</button>
+                </form>
+            </div>
+            <div id="list-area">
+                <ul>
+                    <li>item 1</li>
+                </ul>
+            </div>
         </div>
     </main>
 </body>
