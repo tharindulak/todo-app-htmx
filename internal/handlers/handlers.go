@@ -11,7 +11,7 @@ type Handler struct{}
 
 func (h *Handler) Hello(w http.ResponseWriter, r *http.Request) {
 	component := templates.Hello("yay")
-    component.Render(context.Background(),w)
+	component.Render(context.Background(), w)
 }
 
 func NewHandler() *Handler {
