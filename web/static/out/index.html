@@ -11,25 +11,33 @@
 </head>
 
 <body>
-    <main>
-        <div class="flex flex-col mx-auto w-fit">
-            <h1 class="text-4xl text-center">Go + HTMX + Tailwind</h1>
-            <div id="content-area">
-                <div id="input-area">
-                    <form hx-post="/api/add" hx-target="#list-area">
-                        <input type="text" name="item" placeholder="Add item" />
-                        <button type="submit">Add</button>
-                    </form>
-                </div>
-                <div id="list-area">
-                    <ul class="list-none" style="list-style:none">
-                        <li>item 1</li>
-                    </ul>
-                </div>
+    <div class="flex flex-col mx-auto w-fit max-w-1/2 min-w-1/2">
+        <h1 class="text-4xl text-center">Go + HTMX + Tailwind ToDo</h1>
+        <div id="content-area">
+            <div id="input-area">
+                <form hx-post="/api/add" hx-target="#list-area">
+                    <input class="rounded my-1 w-full" type="text" name="item" placeholder="Add item" />
+                </form>
             </div>
-
+            <div id="list-area">
+                <ul class="list-none" style="list-style:none">
+                    <li>
+                        <div class="border-solid border-2 rounded p-1 flex flex-row">
+                            <section class="">
+                                <input type="checkbox" name="item" hx-put="/api/todo/1" />
+                            </section>
+                            <section class="flex-1 ml-1 text-ellipsis overflow-hidden">
+                                <span class="text-xl ">Hello</span>
+                            </section>
+                            <section>
+                                <button class="" hx-delete="/api/todo/1">Delete</button>
+                            </section>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </main>
+    </div>
 </body>
 
 </html>
