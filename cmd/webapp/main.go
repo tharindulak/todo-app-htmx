@@ -1,6 +1,7 @@
 package main
 
 import (
+	"mime"
 	"net/http"
 
 	"github.com/charukak/todo-app-htmx/pkg/server"
@@ -9,18 +10,23 @@ import (
 )
 
 func main() {
+	loadMimeTypes()
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
-	fs := http.FileServer(http.Dir("web/static/"))
+	fs := http.FileServer(http.Dir("web/static/out"))
 
-	r.Handle("/", fs)
+	r.Handle("/*", fs)
 
 	// h := handlers.NewHandler()
 	// r.Get("/", h.Hello)
 
 	s := server.NewServer()
-	// s.Handle("/", h.Hello)
 	s.Start(r)
 
+}
+
+func loadMimeTypes() {
+	mime.AddExtensionType(".css", "text/css")
+	mime.AddExtensionType(".js", "application/javascript")
 }
