@@ -11,20 +11,23 @@
 </head>
 
 <body>
-    <main class="flex-col justify-center">
-        <h1 class="text-4xl text-center">Go + HTMX + Tailwind</h1>
-        <div id="content-area">
-            <div id="input-area">
-                <form hx-post="/api/add" hx-target="#list-area">
-                    <input type="text" name="item" placeholder="Add item" />
-                    <button type="submit">Add</button>
-                </form>
+    <main>
+        <div class="flex flex-col mx-auto w-fit">
+            <h1 class="text-4xl text-center">Go + HTMX + Tailwind</h1>
+            <div id="content-area">
+                <div id="input-area">
+                    <form hx-post="/api/add" hx-target="#list-area">
+                        <input type="text" name="item" placeholder="Add item" />
+                        <button type="submit">Add</button>
+                    </form>
+                </div>
+                <div id="list-area">
+                    <ul class="list-none" style="list-style:none">
+                        <li>item 1</li>
+                    </ul>
+                </div>
             </div>
-            <div id="list-area">
-                <ul class="list-none" style="list-style:none">
-                    <li>item 1</li>
-                </ul>
-            </div>
+
         </div>
     </main>
 </body>
