@@ -1,6 +1,23 @@
 package templates
 
 templ Hello(name string) {
-    <div>Hello, { name }</div>
+	<div class="flex-1">Hello, { name }</div>
 }
 
+templ Todos(todo []string) {
+	<ul class="list-none" style="list-style:none">
+		<li>
+			<div class="border-solid border-2 rounded p-1 flex flex-row">
+				<section class="">
+					<input type="checkbox" name="item" hx-put="/api/todo/1"/>
+				</section>
+				<section class="flex-1 ml-1 text-ellipsis overflow-hidden">
+					<span class="text-xl ">Hello</span>
+				</section>
+				<section>
+					<button class="" hx-delete="/api/todo/1">Delete</button>
+				</section>
+			</div>
+		</li>
+	</ul>
+}

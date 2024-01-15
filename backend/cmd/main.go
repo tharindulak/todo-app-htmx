@@ -23,7 +23,6 @@ func main() {
 	r := gin.Default()
 	ping.RegisterPingHandler(r)
 	todo.RegisterTodoHandler(r, db)
-
 	r.Run() // listen and serve on
 }
 

@@ -5,20 +5,15 @@ import (
 	"strconv"
 
 	"github.com/gin-gonic/gin"
+	common "github.com/charukak/todo-app-common/pkg"
 )
 
-type Todo struct {
-	ID          int    `json:"id"`
-	Title       string `json:"title"`
-	Description string `json:"description"`
-	Status      bool   `json:"status"`
-}
 
 type ITodoService interface {
-	GetAll() ([]Todo, error)
-	GetByID(id int) (Todo, error)
-	Create(todo Todo) (Todo, error)
-	Update(todo Todo) (Todo, error)
+	GetAll() ([]common.Todo, error)
+	GetByID(id int) (common.Todo, error)
+	Create(todo common.Todo) (common.Todo, error)
+	Update(todo common.Todo) (common.Todo, error)
 	Delete(id int) error
 }
 
@@ -26,7 +21,7 @@ type TodoService struct {
 	db *sql.DB
 }
 
-func (s *TodoService) GetAll() ([]Todo, error) {
+func (s *TodoService) GetAll() ([]common.Todo, error) {
 	rows, err := s.db.Query("SELECT * FROM todos")
 
 	if err != nil {
@@ -35,10 +30,10 @@ func (s *TodoService) GetAll() ([]Todo, error) {
 
 	defer rows.Close()
 
-	var todos []Todo = []Todo{}
+	var todos []common.Todo = []common.Todo{}
 
 	for rows.Next() {
-		var todo Todo
+		var todo common.Todo
 
 		err := rows.Scan(&todo.ID, &todo.Title, &todo.Description, &todo.Status)
 
@@ -53,8 +48,8 @@ func (s *TodoService) GetAll() ([]Todo, error) {
 
 }
 
-func (s *TodoService) GetByID(id int) (Todo, error) {
-	var todo Todo
+func (s *TodoService) GetByID(id int) (common.Todo, error) {
+	var todo common.Todo
 
 	row := s.db.QueryRow("SELECT * FROM todos WHERE id = ?", id)
 
@@ -67,7 +62,7 @@ func (s *TodoService) GetByID(id int) (Todo, error) {
 	return todo, nil
 }
 
-func (s *TodoService) Create(todo Todo) (Todo, error) {
+func (s *TodoService) Create(todo common.Todo) (common.Todo, error) {
 	_, err := s.db.Exec(
 		"INSERT INTO todos (title, description, status) VALUES (?, ?, ?)",
 		todo.Title,
@@ -81,7 +76,7 @@ func (s *TodoService) Create(todo Todo) (Todo, error) {
 	return todo, nil
 }
 
-func (s *TodoService) Update(todo Todo) (Todo, error) {
+func (s *TodoService) Update(todo common.Todo) (common.Todo, error) {
 	_, err := s.db.Exec(
 		"UPDATE todos SET title = ?, description = ?, status = ? WHERE id = ?",
 		todo.Title,
@@ -143,7 +138,7 @@ func RegisterTodoHandler(r *gin.Engine, db *sql.DB) {
 	})
 
 	r.POST("/todos", func(c *gin.Context) {
-		var todo Todo
+		var todo common.Todo
 
 		if err := c.ShouldBindJSON(&todo); err != nil {
 			c.JSON(400, gin.H{"message": err.Error()})
@@ -161,7 +156,7 @@ func RegisterTodoHandler(r *gin.Engine, db *sql.DB) {
 	})
 
 	r.PUT("/todos/:id", func(c *gin.Context) {
-		var todo Todo
+		var todo common.Todo
 
 		if err := c.ShouldBindJSON(&todo); err != nil {
 			c.JSON(400, gin.H{"message": err.Error()})
@@ -202,6 +197,6 @@ func RegisterTodoHandler(r *gin.Engine, db *sql.DB) {
 			return
 		}
 
-		c.JSON(200, gin.H{"message": "Todo deleted"})
+		c.JSON(200, gin.H{"message": "common.Todo deleted"})
 	})
 }
