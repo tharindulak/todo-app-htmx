@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/charukak/todo-app-backend/internal/resource/ping"
+	"github.com/charukak/todo-app-backend/internal/resource/todo"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -17,11 +18,12 @@ const (
 func main() {
 	createDBIfNotExist()
 	db := openDB()
-
 	createTableIfNotExist(db)
 
 	r := gin.Default()
 	ping.RegisterPingHandler(r)
+	todo.RegisterTodoHandler(r, db)
+
 	r.Run() // listen and serve on
 }
 

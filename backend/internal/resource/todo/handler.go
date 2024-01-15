@@ -2,6 +2,7 @@ package todo
 
 import (
 	"database/sql"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -109,6 +110,98 @@ func NewTodoService(db *sql.DB) ITodoService {
 	return &TodoService{db}
 }
 
-func RegisterTodoHandler(r *gin.Engine) {
+func RegisterTodoHandler(r *gin.Engine, db *sql.DB) {
+	service := NewTodoService(db)
 
+	r.GET("/todos", func(c *gin.Context) {
+		todos, err := service.GetAll()
+
+		if err != nil {
+			c.JSON(500, gin.H{"message": err.Error()})
+			return
+		}
+
+		c.JSON(200, todos)
+	})
+
+	r.GET("/todos/:id", func(c *gin.Context) {
+		id, err := strconv.Atoi(c.Param("id"))
+
+		if err != nil {
+			c.JSON(400, gin.H{"message": err.Error()})
+			return
+		}
+
+		todo, err := service.GetByID(id)
+
+		if err != nil {
+			c.JSON(500, gin.H{"message": err.Error()})
+			return
+		}
+
+		c.JSON(200, todo)
+	})
+
+	r.POST("/todos", func(c *gin.Context) {
+		var todo Todo
+
+		if err := c.ShouldBindJSON(&todo); err != nil {
+			c.JSON(400, gin.H{"message": err.Error()})
+			return
+		}
+
+		newTodo, err := service.Create(todo)
+
+		if err != nil {
+			c.JSON(500, gin.H{"message": err.Error()})
+			return
+		}
+
+		c.JSON(201, newTodo)
+	})
+
+	r.PUT("/todos/:id", func(c *gin.Context) {
+		var todo Todo
+
+		if err := c.ShouldBindJSON(&todo); err != nil {
+			c.JSON(400, gin.H{"message": err.Error()})
+			return
+		}
+
+		id, err := strconv.Atoi(c.Param("id"))
+
+		if err != nil {
+			c.JSON(400, gin.H{"message": err.Error()})
+			return
+		}
+
+		todo.ID = id
+
+		newTodo, err := service.Update(todo)
+
+		if err != nil {
+			c.JSON(500, gin.H{"message": err.Error()})
+			return
+		}
+
+		c.JSON(200, newTodo)
+	})
+
+	r.DELETE("/todos/:id", func(c *gin.Context) {
+		id, err := strconv.Atoi(c.Param("id"))
+
+		if err != nil {
+			c.JSON(400, gin.H{"message": err.Error()})
+			return
+		}
+
+		err = service.Delete(id)
+
+		if err != nil {
+			c.JSON(500, gin.H{"message": err.Error()})
+			return
+		}
+
+		c.JSON(200, gin.H{"message": "Todo deleted"})
+	})
 }
