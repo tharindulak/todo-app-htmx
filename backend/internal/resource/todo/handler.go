@@ -1,6 +1,10 @@
 package todo
 
-import "database/sql"
+import (
+	"database/sql"
+
+	"github.com/gin-gonic/gin"
+)
 
 type Todo struct {
 	ID          int    `json:"id"`
@@ -21,16 +25,90 @@ type TodoService struct {
 	db *sql.DB
 }
 
-func (s *TodoService) GetAll() ([]Todo, error) {}
+func (s *TodoService) GetAll() ([]Todo, error) {
+	rows, err := s.db.Query("SELECT * FROM todos")
 
-func (s *TodoService) GetByID(id int) (Todo, error) {}
+	if err != nil {
+		return nil, err
+	}
 
-func (s *TodoService) Create(todo Todo) (Todo, error) {}
+	defer rows.Close()
 
-func (s *TodoService) Update(todo Todo) (Todo, error) {}
+	var todos []Todo
 
-func (s *TodoService) Delete(id int) error {}
+	for rows.Next() {
+		var todo Todo
+
+		err := rows.Scan(&todo.ID, &todo.Title, &todo.Description, &todo.Status)
+
+		if err != nil {
+			return nil, err
+		}
+
+		todos = append(todos, todo)
+	}
+
+	return todos, nil
+
+}
+
+func (s *TodoService) GetByID(id int) (Todo, error) {
+	var todo Todo
+
+	row := s.db.QueryRow("SELECT * FROM todos WHERE id = ?", id)
+
+	err := row.Scan(&todo.ID, &todo.Title, &todo.Description, &todo.Status)
+
+	if err != nil {
+		return todo, err
+	}
+
+	return todo, nil
+}
+
+func (s *TodoService) Create(todo Todo) (Todo, error) {
+	_, err := s.db.Exec(
+		"INSERT INTO todos (title, description, status) VALUES (?, ?, ?)",
+		todo.Title,
+		todo.Description,
+		todo.Status)
+
+	if err != nil {
+		return todo, err
+	}
+
+	return todo, nil
+}
+
+func (s *TodoService) Update(todo Todo) (Todo, error) {
+	_, err := s.db.Exec(
+		"UPDATE todos SET title = ?, description = ?, status = ? WHERE id = ?",
+		todo.Title,
+		todo.Description,
+		todo.Status,
+		todo.ID)
+
+	if err != nil {
+		return todo, err
+	}
+
+	return todo, nil
+}
+
+func (s *TodoService) Delete(id int) error {
+	_, err := s.db.Exec("DELETE FROM todos WHERE id = ?", id)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
 
 func NewTodoService(db *sql.DB) ITodoService {
 	return &TodoService{db}
+}
+
+func RegisterTodoHandler(r *gin.Engine) {
+
 }
