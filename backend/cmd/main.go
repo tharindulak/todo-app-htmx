@@ -49,7 +49,7 @@ func openDB() *sql.DB {
 
 func createTableIfNotExist(db *sql.DB) {
 	sqlStmt := `
-	create table if not exists todo (id integer not null primary key, title text, description text, status bool);
+	create table if not exists todos (id integer not null primary key, title text, description text, status bool);
 	`
 	_, err := db.Exec(sqlStmt)
 

@@ -35,7 +35,7 @@ func (s *TodoService) GetAll() ([]Todo, error) {
 
 	defer rows.Close()
 
-	var todos []Todo
+	var todos []Todo = []Todo{}
 
 	for rows.Next() {
 		var todo Todo
