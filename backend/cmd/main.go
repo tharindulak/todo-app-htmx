@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"os"
 
+	"github.com/charukak/todo-app-backend/internal/resource/ping"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )
@@ -20,11 +21,7 @@ func main() {
 	createTableIfNotExist(db)
 
 	r := gin.Default()
-	r.GET("/ping", func(c *gin.Context) {
-		c.JSON(200, gin.H{
-			"message": "Hello World!",
-		})
-	})
+	ping.RegisterPingHandler(r)
 	r.Run() // listen and serve on
 }
 
@@ -50,8 +47,7 @@ func openDB() *sql.DB {
 
 func createTableIfNotExist(db *sql.DB) {
 	sqlStmt := `
-	create table if not exists foo (id integer not null primary key, name text);
-	delete from foo;
+	create table if not exists todo (id integer not null primary key, title text, description text, status bool);
 	`
 	_, err := db.Exec(sqlStmt)
 
