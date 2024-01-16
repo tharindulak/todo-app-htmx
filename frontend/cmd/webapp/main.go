@@ -4,6 +4,7 @@ import (
 	"mime"
 	"net/http"
 
+	"github.com/charukak/todo-app-htmx/internal/handlers"
 	"github.com/charukak/todo-app-htmx/pkg/server"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -18,8 +19,8 @@ func main() {
 
 	r.Handle("/*", fs)
 
-	// h := handlers.NewHandler()
-	// r.Get("/", h.Hello)
+	h := handlers.NewHandler()
+	r.Get("/todos", h.TodoList)
 
 	s := server.NewServer()
 	s.Start(r)
