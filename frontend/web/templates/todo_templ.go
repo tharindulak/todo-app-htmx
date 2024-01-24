@@ -12,7 +12,7 @@ import "bytes"
 
 import (
 	"fmt"
-	common "github.com/charukak/todo-app-common/pkg"
+	common "github.com/charukak/todo-app-htmx/common/pkg"
 )
 
 func TodoList(todo []common.Todo) templ.Component {
