@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/charukak/todo-app-htmx/internal/app"
-	"github.com/charukak/todo-app-htmx/web/templates"
+	"github.com/charukak/todo-app-htmx/frontend/internal/app"
+	"github.com/charukak/todo-app-htmx/frontend/web/templates"
 )
 
 type Handler struct {

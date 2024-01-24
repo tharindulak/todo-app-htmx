@@ -4,8 +4,8 @@ import (
 	"mime"
 	"net/http"
 
-	"github.com/charukak/todo-app-htmx/internal/handlers"
-	"github.com/charukak/todo-app-htmx/pkg/server"
+	"github.com/charukak/todo-app-htmx/frontend/internal/handlers"
+	"github.com/charukak/todo-app-htmx/frontend/pkg/server"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 )

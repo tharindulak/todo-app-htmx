@@ -1,4 +1,4 @@
-module github.com/charukak/todo-app-htmx
+module github.com/charukak/todo-app-htmx/frontend
 
 go 1.21.0
 

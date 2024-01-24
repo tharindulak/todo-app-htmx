@@ -4,10 +4,9 @@ import (
 	"database/sql"
 	"strconv"
 
+	common "github.com/charukak/todo-app-htmx/common/pkg"
 	"github.com/gin-gonic/gin"
-	common "github.com/charukak/todo-app-common/pkg"
 )
-
 
 type ITodoService interface {
 	GetAll() ([]common.Todo, error)

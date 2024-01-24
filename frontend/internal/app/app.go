@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	common "github.com/charukak/todo-app-common/pkg"
+	common "github.com/charukak/todo-app-htmx/common/pkg"
 )
 
 // API client for todo app
@@ -149,4 +149,3 @@ func (c *TodoAppClient) DeleteTodoById(id string) error {
 
 	return nil
 }
-
