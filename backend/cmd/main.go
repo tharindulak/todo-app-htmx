@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"os"
 
-	"github.com/charukak/todo-app-backend/internal/resource/ping"
-	"github.com/charukak/todo-app-backend/internal/resource/todo"
+	"github.com/charukak/todo-app-htmx/backend/internal/resource/ping"
+	"github.com/charukak/todo-app-htmx/backend/internal/resource/todo"
 	"github.com/gin-gonic/gin"
 	_ "github.com/mattn/go-sqlite3"
 )

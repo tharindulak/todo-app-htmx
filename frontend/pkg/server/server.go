@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/charukak/todo-app-htmx/pkg/log"
+	"github.com/charukak/todo-app-htmx/frontend/pkg/log"
 	"github.com/go-chi/chi/v5"
 )
 

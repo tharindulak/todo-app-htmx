@@ -3,6 +3,7 @@ module github.com/charukak/todo-app-htmx/backend
 go 1.21.0
 
 require (
+	github.com/charukak/todo-app-htmx/common v0.0.0-20240124130301-863df9745a31
 	github.com/gin-gonic/gin v1.9.1
 	github.com/mattn/go-sqlite3 v1.14.19
 )
