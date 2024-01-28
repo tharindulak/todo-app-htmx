@@ -757,6 +757,10 @@ select {
   display: flex;
 }
 
+.hidden {
+  display: none;
+}
+
 .w-fit {
   width: -moz-fit-content;
   width: fit-content;

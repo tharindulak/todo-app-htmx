@@ -21,6 +21,8 @@ func main() {
 
 	h := handlers.NewHandler()
 	r.Get("/todos", h.TodoList)
+	r.Post("/todos", h.CreateTodo)
+
 
 	s := server.NewServer()
 	s.Start(r)

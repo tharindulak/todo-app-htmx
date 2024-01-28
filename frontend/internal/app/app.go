@@ -2,7 +2,9 @@ package app
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 
 	common "github.com/charukak/todo-app-htmx/common/pkg"
 )
@@ -79,8 +81,15 @@ func (c *TodoAppClient) GetTodoById(id string) (*common.Todo, error) {
 }
 
 // Create a new todo
-func (c *TodoAppClient) CreateTodo() (*common.Todo, error) {
-	req, err := http.NewRequest("POST", c.url+"/todos", nil)
+func (c *TodoAppClient) CreateTodo(title string, description string) (*common.Todo, error) {
+	payload := strings.NewReader(
+		fmt.Sprintf(`{"title": "%s", "description": "%s, status: false"}`,
+			title,
+			description,
+		),
+	)
+
+	req, err := http.NewRequest("POST", c.url+"/todos", payload)
 
 	if err != nil {
 		return nil, err

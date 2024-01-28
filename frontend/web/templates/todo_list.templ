@@ -1,0 +1,13 @@
+package templates
+
+import (
+	common "github.com/charukak/todo-app-htmx/common/pkg"
+)
+
+templ TodoList(todo []common.Todo) {
+	<ul id="#list" class="list-none" style="list-style:none">
+		for _, t := range todo {
+			@TodoItem(t)
+		}
+	</ul>
+}
