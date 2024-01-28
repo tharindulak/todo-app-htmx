@@ -30,7 +30,12 @@ templ TodoItem(t common.Todo) {
 				<span class="text-xl ">{ t.Title }</span>
 			</section>
 			<section>
-				<button class="" hx-delete="/api/todo/1">Delete</button>
+				<button
+					hx-delete={ fmt.Sprintf("todos/%d", t.ID) }
+					hx-trigger="click"
+				>
+					Delete
+				</button>
 			</section>
 		</div>
 	</li>

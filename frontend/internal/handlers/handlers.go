@@ -90,6 +90,26 @@ func (h *Handler) UpdateTodoStatus(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("HX-Trigger", "todos-changed")
 }
 
+func (h *Handler) DeleteTodoById(w http.ResponseWriter, r *http.Request) {
+	log.Info("DELETE DeleteTodoById")
+
+	id, err := strconv.Atoi(chi.URLParam(r, "id"))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	err = h.todoAppClient.DeleteTodoById(strconv.Itoa(id))
+
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("HX-Trigger", "todos-changed")
+}
+
 func NewHandler() *Handler {
 
 	return &Handler{

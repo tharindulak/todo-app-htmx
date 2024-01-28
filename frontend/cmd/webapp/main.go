@@ -25,6 +25,7 @@ func main() {
 		r.Get("/", h.TodoList)
 		r.Post("/", h.CreateTodo)
 		r.Put("/{id}", h.UpdateTodoStatus)
+		r.Delete("/{id}", h.DeleteTodoById)
 	})
 
 	s := server.NewServer()

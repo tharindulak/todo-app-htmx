@@ -76,7 +76,15 @@ func TodoItem(t common.Todo) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span></section><section><button class=\"\" hx-delete=\"/api/todo/1\">")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("</span></section><section><button hx-delete=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(fmt.Sprintf("todos/%d", t.ID)))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\" hx-trigger=\"click\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
