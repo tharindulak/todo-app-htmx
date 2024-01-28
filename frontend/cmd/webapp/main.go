@@ -20,9 +20,12 @@ func main() {
 	r.Handle("/*", fs)
 
 	h := handlers.NewHandler()
-	r.Get("/todos", h.TodoList)
-	r.Post("/todos", h.CreateTodo)
 
+	r.Route("/todos", func(r chi.Router) {
+		r.Get("/", h.TodoList)
+		r.Post("/", h.CreateTodo)
+		r.Put("/{id}", h.UpdateTodoStatus)
+	})
 
 	s := server.NewServer()
 	s.Start(r)

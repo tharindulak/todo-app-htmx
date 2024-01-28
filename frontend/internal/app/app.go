@@ -142,18 +142,17 @@ func (c *TodoAppClient) UpdateTodoById(id string) (*common.Todo, error) {
 	return &todo, nil
 }
 
-func (c *TodoAppClient) UpdateTodo(id string, title string, description string, status bool) (*common.Todo, error) {
+func (c *TodoAppClient) UpdateTodo(t *common.Todo) (*common.Todo, error) {
 	payload := strings.NewReader(
 		fmt.Sprintf(
-			`{"id": %s, "title": "%s", "description": "%s", "status": %t}`,
-			id,
-			title,
-			description,
-			status,
+			`{"title": "%s", "description": "%s", "status": %t}`,
+			t.Title,
+			t.Description,
+			t.Status,
 		),
 	)
 
-	req, err := http.NewRequest("PUT", c.url+"/todos/"+id, payload)
+	req, err := http.NewRequest("PUT", fmt.Sprintf("%s/todos/%d", c.url, t.ID), payload)
 
 	if err != nil {
 		return nil, err

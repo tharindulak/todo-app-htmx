@@ -2,7 +2,9 @@ package todo
 
 import (
 	"database/sql"
+	"fmt"
 	"strconv"
+	"strings"
 
 	common "github.com/charukak/todo-app-htmx/common/pkg"
 	"github.com/gin-gonic/gin"
@@ -84,11 +86,20 @@ func (s *TodoService) Create(todo common.Todo) (common.Todo, error) {
 }
 
 func (s *TodoService) Update(todo common.Todo) (common.Todo, error) {
+	cols := []string{}
+
+	if todo.Title != "" {
+		cols = append(cols, "title = '"+todo.Title+"'")
+	}
+
+	if todo.Description != "" {
+		cols = append(cols, "description = '"+todo.Description+"'")
+	}
+
+	cols = append(cols, "status = "+strconv.FormatBool(todo.Status))
+
 	_, err := s.db.Exec(
-		"UPDATE todos SET title = ?, description = ?, status = ? WHERE id = ?",
-		todo.Title,
-		todo.Description,
-		todo.Status,
+		fmt.Sprintf("UPDATE todos SET %s WHERE id = ?", strings.Join(cols, ",")),
 		todo.ID)
 
 	if err != nil {

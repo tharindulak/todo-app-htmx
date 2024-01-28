@@ -10,9 +10,20 @@ templ TodoItem(t common.Todo) {
 		<div class="border-solid border-2 rounded p-1 flex flex-row hover:bg-gray-300">
 			<section class="">
 				if t.Status {
-					<input type="checkbox" name="item" hx-put={ fmt.Sprintf("/api/v1/%d", t.ID) } checked/>
+					<input
+						type="checkbox"
+						name="status"
+						hx-put={ fmt.Sprintf("todos/%d", t.ID) }
+						hx-trigger="click"
+						checked
+					/>
 				} else {
-					<input type="checkbox" name="item" hx-put={ fmt.Sprintf("/api/v1/%d", t.ID) }/>
+					<input
+						type="checkbox"
+						name="status"
+						hx-put={ fmt.Sprintf("todos/%d", t.ID) }
+						hx-trigger="click"
+					/>
 				}
 			</section>
 			<section class="flex-1 ml-1 text-ellipsis overflow-hidden">
