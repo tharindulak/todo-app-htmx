@@ -36,7 +36,7 @@ func TodoItem(t common.Todo) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div class=\"border-solid border-2 rounded p-1 flex flex-row\"><section class=\"\"><input type=\"checkbox\" name=\"item\" hx-put=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("\"><div class=\"border-solid border-2 rounded p-1 flex flex-row hover:bg-gray-300\"><section class=\"\"><input type=\"checkbox\" name=\"item\" hx-put=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

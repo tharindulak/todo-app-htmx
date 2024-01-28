@@ -142,6 +142,43 @@ func (c *TodoAppClient) UpdateTodoById(id string) (*common.Todo, error) {
 	return &todo, nil
 }
 
+func (c *TodoAppClient) UpdateTodo(id string, title string, description string, status bool) (*common.Todo, error) {
+	payload := strings.NewReader(
+		fmt.Sprintf(
+			`{"id": %s, "title": "%s", "description": "%s", "status": %t}`,
+			id,
+			title,
+			description,
+			status,
+		),
+	)
+
+	req, err := http.NewRequest("PUT", c.url+"/todos/"+id, payload)
+
+	if err != nil {
+		return nil, err
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	defer resp.Body.Close()
+
+	var todo common.Todo
+
+	err = json.NewDecoder(resp.Body).Decode(&todo)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &todo, nil
+}
+
 func (c *TodoAppClient) DeleteTodoById(id string) error {
 	req, err := http.NewRequest("DELETE", c.url+"/todos/"+id, nil)
 

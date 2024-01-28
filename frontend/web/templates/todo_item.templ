@@ -7,7 +7,7 @@ import (
 
 templ TodoItem(t common.Todo) {
 	<li id={ fmt.Sprintf("id-%d", t.ID) }>
-		<div class="border-solid border-2 rounded p-1 flex flex-row">
+		<div class="border-solid border-2 rounded p-1 flex flex-row hover:bg-gray-300">
 			<section class="">
 				<input type="checkbox" name="item" hx-put={ fmt.Sprintf("/api/v1/%d", t.ID) }/>
 			</section>

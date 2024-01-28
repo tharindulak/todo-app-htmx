@@ -827,3 +827,8 @@ select {
   font-size: 1.25rem;
   line-height: 1.75rem;
 }
+
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}

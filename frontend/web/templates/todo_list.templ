@@ -5,7 +5,7 @@ import (
 )
 
 templ TodoList(todo []common.Todo) {
-	<ul id="#list" class="list-none" style="list-style:none">
+	<ul class="list-none" style="list-style:none">
 		for _, t := range todo {
 			@TodoItem(t)
 		}

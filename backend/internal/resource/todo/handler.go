@@ -62,7 +62,7 @@ func (s *TodoService) GetByID(id int) (common.Todo, error) {
 }
 
 func (s *TodoService) Create(todo common.Todo) (common.Todo, error) {
-	_, err := s.db.Exec(
+	result, err := s.db.Exec(
 		"INSERT INTO todos (title, description, status) VALUES (?, ?, ?)",
 		todo.Title,
 		todo.Description,
@@ -71,6 +71,14 @@ func (s *TodoService) Create(todo common.Todo) (common.Todo, error) {
 	if err != nil {
 		return todo, err
 	}
+
+	lastID, err := result.LastInsertId()
+
+	if err != nil {
+		return todo, err
+	}
+
+	todo.ID = int(lastID)
 
 	return todo, nil
 }
