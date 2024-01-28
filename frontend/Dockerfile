@@ -8,6 +8,8 @@ WORKDIR /app
 RUN go build -o tmp/main cmd/webapp/main.go
 
 FROM alpine:latest
+USER nobody
+
 COPY --from=build /app/tmp/main /app/tmp/main
 COPY --from=build /app/web/static /app/web/static
 
