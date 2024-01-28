@@ -9,7 +9,11 @@ templ TodoItem(t common.Todo) {
 	<li id={ fmt.Sprintf("id-%d", t.ID) }>
 		<div class="border-solid border-2 rounded p-1 flex flex-row hover:bg-gray-300">
 			<section class="">
-				<input type="checkbox" name="item" hx-put={ fmt.Sprintf("/api/v1/%d", t.ID) }/>
+				if t.Status {
+					<input type="checkbox" name="item" hx-put={ fmt.Sprintf("/api/v1/%d", t.ID) } checked/>
+				} else {
+					<input type="checkbox" name="item" hx-put={ fmt.Sprintf("/api/v1/%d", t.ID) }/>
+				}
 			</section>
 			<section class="flex-1 ml-1 text-ellipsis overflow-hidden">
 				<span class="text-xl ">{ t.Title }</span>

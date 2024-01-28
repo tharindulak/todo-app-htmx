@@ -38,16 +38,17 @@ func (h *Handler) CreateTodo(w http.ResponseWriter, r *http.Request) {
 	title := r.FormValue("title")
 	description := r.FormValue("description")
 
-	todo, err := h.todoAppClient.CreateTodo(title, description)
+	_, err := h.todoAppClient.CreateTodo(title, description)
 
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
-	component := templates.TodoItem(*todo)
+	w.Header().Set("HX-Trigger", "todos-changed")
 
-	component.Render(context.Background(), w)
+	// component := templates.TodoItem(*todo)
+
 }
 
 func NewHandler() *Handler {

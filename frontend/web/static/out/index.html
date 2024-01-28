@@ -15,14 +15,14 @@
         <h1 class="text-4xl text-center">Go + HTMX + Tailwind ToDo</h1>
         <div id="content-area">
             <div id="input-area">
-                <form hx-post="/todos" hx-trigger="keyup[keyCode==13]" hx-target="#list-area ul" hx-swap="afterbegin">
+                <form hx-post="/todos" hx-trigger="keyup[keyCode==13]" hx-swap="none">
                     <input class="rounded my-1 w-full" type="text" name="title" placeholder="Add Todo" />
                     <input class="rounded my-1 w-full hidden" type="text" name="description"
                         placeholder="Add description" value="" />
 
                 </form>
             </div>
-            <div id="list-area" hx-get="/todos" hx-trigger="load">
+            <div id="todo-list-area" hx-get="/todos" hx-trigger="load, todos-changed from:body">
 
             </div>
         </div>

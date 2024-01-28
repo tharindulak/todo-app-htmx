@@ -5,9 +5,15 @@ import (
 )
 
 templ TodoList(todo []common.Todo) {
-	<ul class="list-none" style="list-style:none">
-		for _, t := range todo {
-			@TodoItem(t)
-		}
-	</ul>
+	if len(todo) == 0 {
+		<div class="text-center">
+			<p class="text-gray-500">No todos found!</p>
+		</div>
+	} else {
+		<ul class="list-none" style="list-style:none">
+			for _, t := range todo {
+				@TodoItem(t)
+			}
+		</ul>
+	}
 }
