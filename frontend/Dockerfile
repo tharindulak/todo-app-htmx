@@ -8,11 +8,11 @@ WORKDIR /app
 RUN go build -o tmp/main cmd/webapp/main.go
 
 FROM alpine:latest
-USER nobody
+USER 10004
 
 COPY --from=build /app/tmp/main /app/tmp/main
 COPY --from=build /app/web/static /app/web/static
 
 ENTRYPOINT ["/app/tmp/main"]
-EXPOSE 8080
+EXPOSE 80
 
